@@ -10,7 +10,7 @@
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
-
+        console.log(streams.home.length);
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
@@ -19,8 +19,18 @@
           $tweet.appendTo($body);
           index -= 1;
         }
-
+        addNewTweets();
       });
+
+      function addNewTweets(){
+        scheduleNextTweet();
+        var l = streams.home.length - 1;
+        var tweet = streams.home[l];
+        var $tweet = $('<div></div>');
+        $tweet.text('@' + tweet.user + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
+        $tweet.prependTo($('body'));
+        setTimeout(addNewTweets, 1000);
+      }
 
 
       // utility function for parsing dates created by data_generator.js and stored in tweets.created_at
@@ -34,7 +44,6 @@
                         hourParse(date.getHours()),
                         date.getMinutes(),
                         date.getSeconds()];
-                        console.log(parsedDate.join('-'));
         return parsedDate.join('-');
       }
     </script>
