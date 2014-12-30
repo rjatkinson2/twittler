@@ -7,6 +7,8 @@
   <body>
     <script>
 
+      window.userPage = false;
+
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
@@ -16,21 +18,41 @@
           displayNewTweets(index,'appendTo',$body);
           index -= 1;
         }
-        addNewTweets();
+        $("a").on('click',function(){
+          console.log($(this).text());
+          showUser($(this).text());
+        })
+        addNewTweets('home');
       });
 
-      function addNewTweets(){
-        scheduleNextTweet();
-        var l = streams.home.length - 1;
-        displayNewTweets(l,'prependTo',$('body'));
-        setTimeout(addNewTweets, 2000);
+      function showUser(userName){
+        var $body = $('body');
+        $body.html('');
+        window.userPage = true;
+        var index = streams.users[userName].length - 1;
+        while(index >= 0){
+          var tweet = streams.users[userName][index];
+          var $tweet = $('<div></div>');
+          var linkedUser = "<a href='#'>" + tweet.user + "</a>";
+          $tweet.html('@' + linkedUser + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
+          $tweet['appendTo']($body);
+          index -= 1;
+        }
+      }
+
+      function addNewTweets(kind){
+        if(!window.userPage){
+          scheduleNextTweet();
+          var l = streams[kind].length - 1;
+          displayNewTweets(l,'prependTo',$('body'));
+          setTimeout(addNewTweets, 2000, kind);
+        }
       }
 
       function displayNewTweets(ind,appendType,appendLocation){
         var tweet = streams.home[ind];
         var $tweet = $('<div></div>');
         var linkedUser = "<a href='#'>" + tweet.user + "</a>";
-        console.log(linkedUser);
         $tweet.html('@' + linkedUser + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
         $tweet[appendType](appendLocation);
       }
