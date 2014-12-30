@@ -6,6 +6,24 @@
   </head>
   <body>
     <script>
+
+      $(document).ready(function(){
+        var $body = $('body');
+        $body.html('');
+
+        var index = streams.home.length - 1;
+        while(index >= 0){
+          var tweet = streams.home[index];
+          var $tweet = $('<div></div>');
+          $tweet.text('@' + tweet.user + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
+          $tweet.appendTo($body);
+          index -= 1;
+        }
+
+      });
+
+
+      // utility function for parsing dates created by data_generator.js and stored in tweets.created_at
       function dateParse(date) {
         var hourParse = function (hour) {
           return (hour > 12) ? hour - 12 : hour;
@@ -19,22 +37,6 @@
                         console.log(parsedDate.join('-'));
         return parsedDate.join('-');
       }
-    
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
-
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
-
-      });
-
     </script>
   </body>
 </html>
