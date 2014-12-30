@@ -6,7 +6,20 @@
   </head>
   <body>
     <script>
-
+      function dateParse(date) {
+        var hourParse = function (hour) {
+          return (hour > 12) ? hour - 12 : hour;
+        }
+        var parsedDate = [date.getFullYear(),
+                        date.getMonth() + 1,
+                        date.getDate(),
+                        hourParse(date.getHours()),
+                        date.getMinutes(),
+                        date.getSeconds()];
+                        console.log(parsedDate.join('-'));
+        return parsedDate.join('-');
+      }
+    
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
