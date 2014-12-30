@@ -40,10 +40,10 @@
       }
 
       function displayTweets(tweetArray,appendType,appendLocation){
-        console.log(tweetArray);
-        var tweet = tweetArray[0];
-        var $tweet = $("<div>@<a href='#'>" + tweet.user + "</a>: " + tweet.message + " - created on: " + dateParse(tweet.created_at) + "</div>");
-        $tweet[appendType](appendLocation);
+        _.each(tweetArray,function(item){
+          var $tweet = $("<div>@<a href='#'>" + item.user + "</a>: " + item.message + " - created on: " + dateParse(item.created_at) + "</div>");
+          $tweet[appendType](appendLocation);
+        });
       }
 
       // utility function for parsing dates stored in tweets.created_at
