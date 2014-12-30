@@ -13,10 +13,7 @@
         console.log(streams.home.length);
         var index = streams.home.length - 1;
         while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
-          $tweet.appendTo($body);
+          displayNewTweets(index,'appendTo',$body);
           index -= 1;
         }
         addNewTweets();
@@ -25,13 +22,16 @@
       function addNewTweets(){
         scheduleNextTweet();
         var l = streams.home.length - 1;
-        var tweet = streams.home[l];
-        var $tweet = $('<div></div>');
-        $tweet.text('@' + tweet.user + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
-        $tweet.prependTo($('body'));
+        displayNewTweets(l,'prependTo',$('body'));
         setTimeout(addNewTweets, 1000);
       }
 
+      function displayNewTweets(ind,appendType,appendLocation){
+        var tweet = streams.home[ind];
+        var $tweet = $('<div></div>');
+        $tweet.text('@' + tweet.user + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
+        $tweet[appendType](appendLocation);
+      }
 
       // utility function for parsing dates created by data_generator.js and stored in tweets.created_at
       function dateParse(date) {
