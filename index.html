@@ -17,21 +17,19 @@
         $body.html('');
         var index = streams.home.length - 1;
         while(index >= 0){
-            var tweet = streams.home[index];
-            var $tweet = $('<div></div>');
-            var linkedUser = "<a href='#'>" + tweet.user + "</a>";
-            $tweet.html('@' + linkedUser + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
-            $tweet.appendTo($body);
+            displayTweets(index,'appendTo',$body);
           index -= 1;
         }
 
         // listen for user name link clicks and then show that user
         $(".appContainer").on("click","a",function(){
+          console.log('working');
         })
       
       });
 
-      function displayNewTweets(appendType,appendLocation,name){
+      function displayTweets(index,appendType,appendLocation,name){
+        var tweet = (name) ? streams.users[name][index] : streams.home[index];
         var $tweet = $("<div>@<a href='#'>" + tweet.user + "</a>: " + tweet.message + " - created on: " + dateParse(tweet.created_at) + "</div>");
         $tweet[appendType](appendLocation);
       }
