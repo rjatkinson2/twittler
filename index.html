@@ -11,19 +11,28 @@
       window.userPage = false;
 
       $(document).ready(function(){
+
+        //show originally generated set of random tweets;
         var $body = $('.appContainer');
         $body.html('');
-        console.log(streams.home.length);
         var index = streams.home.length - 1;
         while(index >= 0){
-          displayNewTweets(index,'appendTo',$body);
+            var tweet = streams.home[index];
+            var $tweet = $('<div></div>');
+            var linkedUser = "<a href='#'>" + tweet.user + "</a>";
+            $tweet.html('@' + linkedUser + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
+            $tweet.appendTo($body);
           index -= 1;
         }
+
+        // listen for user name link clicks and then show that user
         $(".appContainer").on("click","a",function(){
-          console.log($(this).text());
           showUser($(this).text());
+          addUserTweets($(this).text());
         })
+
         addNewTweets('home');
+      
       });
 
       function showUser(userName){
@@ -33,32 +42,34 @@
         var index = streams.users[userName].length - 1;
         while(index >= 0){
           var tweet = streams.users[userName][index];
-          var $tweet = $('<div></div>');
-          var linkedUser = "<a href='#'>" + tweet.user + "</a>";
-          $tweet.html('@' + linkedUser + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
+          var $tweet = $("<div>@<a href='#'>" + tweet.user + "</a>: " + tweet.message + " - created on: " + dateParse(tweet.created_at) + "</div>");
           $tweet['appendTo']($body);
           index -= 1;
         }
       }
 
-      function addNewTweets(kind){
+      function addUserTweets(name){
+          scheduleNextTweet();
+          displayNewTweets('prependTo',$('.appContainer'));
+          setTimeout(addUserTweets, 8000, name);
+      }
+
+      function addNewTweets(homeOrName){
         if(!window.userPage){
           scheduleNextTweet();
-          var l = streams[kind].length - 1;
-          displayNewTweets(l,'prependTo',$('.appContainer'));
-          setTimeout(addNewTweets, 5000, kind);
+          displayNewTweets('prependTo',$('.appContainer'));
+          setTimeout(addNewTweets, 8000, homeOrName);
         }
       }
 
-      function displayNewTweets(ind,appendType,appendLocation){
-        var tweet = streams.home[ind];
-        var $tweet = $('<div></div>');
-        var linkedUser = "<a href='#'>" + tweet.user + "</a>";
-        $tweet.html('@' + linkedUser + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
+      function displayNewTweets(appendType,appendLocation,name){
+        var ind = (name) ? streams.users[name].length - 1 : streams.home.length - 1;
+        var tweet = (name) ? streams.users[name][ind] : streams.home[ind];
+        var $tweet = $("<div>@<a href='#'>" + tweet.user + "</a>: " + tweet.message + " - created on: " + dateParse(tweet.created_at) + "</div>");
         $tweet[appendType](appendLocation);
       }
 
-      // utility function for parsing dates created by data_generator.js and stored in tweets.created_at
+      // utility function for parsing dates stored in tweets.created_at
       function dateParse(date) {
         var hourParse = function (hour) {
           return (hour > 12) ? hour - 12 : hour;
