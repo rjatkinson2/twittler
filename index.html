@@ -18,25 +18,30 @@
         $body.html('');
         var index = streams.home.length - 1;
         while(index >= 0){
-            displayTweets(index,'appendTo',$body);
+          var tweet = streams.home[index];
+          var $tweet = $("<div>@<a href='#'>" + tweet.user + "</a>: " + tweet.message + " - created on: " + dateParse(tweet.created_at) + "</div>");
+          $tweet.appendTo($body);
           index -= 1;
         }
 
+        getLatestTweets(streams.home);
+
         // listen for user name link clicks and then show that user
         $(".appContainer").on("click","a",function(){
-          console.log('working');
         });
       
       });
 
       function getLatestTweets(stream, timeOfLastTweet){
-        var latestTweets = _.filter(stream,function(item){return item.created_at > (timeOfLastTweet);});
-        timeOfLastTweet = stream[stream.length-1].created_at;
-        setTimeout(getLatestTweets,3000,stream,timeOfLastTweet);
+        window.latestTweets = _.filter(stream,function(item){return item.created_at > (timeOfLastTweet);});
+        timeOfLastTweet = (timeOfLastTweet) ? stream[stream.length-1].created_at : stream[stream.length-1].created_at;
+        if(latestTweets[0]){displayTweets(latestTweets,'prependTo',$('.appContainer'));}
+        setTimeout(getLatestTweets,4000,stream,timeOfLastTweet);
       }
 
-      function displayTweets(index,appendType,appendLocation,name){
-        var tweet = (name) ? streams.users[name][index] : streams.home[index];
+      function displayTweets(tweetArray,appendType,appendLocation){
+        console.log(tweetArray);
+        var tweet = tweetArray[0];
         var $tweet = $("<div>@<a href='#'>" + tweet.user + "</a>: " + tweet.message + " - created on: " + dateParse(tweet.created_at) + "</div>");
         $tweet[appendType](appendLocation);
       }
