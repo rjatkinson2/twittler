@@ -23,13 +23,15 @@
         scheduleNextTweet();
         var l = streams.home.length - 1;
         displayNewTweets(l,'prependTo',$('body'));
-        setTimeout(addNewTweets, 1000);
+        setTimeout(addNewTweets, 2000);
       }
 
       function displayNewTweets(ind,appendType,appendLocation){
         var tweet = streams.home[ind];
         var $tweet = $('<div></div>');
-        $tweet.text('@' + tweet.user + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
+        var linkedUser = "<a href='#'>" + tweet.user + "</a>";
+        console.log(linkedUser);
+        $tweet.html('@' + linkedUser + ': ' + tweet.message + ' - created on: ' + dateParse(tweet.created_at));
         $tweet[appendType](appendLocation);
       }
 
