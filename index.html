@@ -27,44 +27,11 @@
 
         // listen for user name link clicks and then show that user
         $(".appContainer").on("click","a",function(){
-          showUser($(this).text());
-          addUserTweets($(this).text());
         })
-
-        addNewTweets('home');
       
       });
 
-      function showUser(userName){
-        var $body = $('.appContainer');
-        $body.html("");
-        window.userPage = true;
-        var index = streams.users[userName].length - 1;
-        while(index >= 0){
-          var tweet = streams.users[userName][index];
-          var $tweet = $("<div>@<a href='#'>" + tweet.user + "</a>: " + tweet.message + " - created on: " + dateParse(tweet.created_at) + "</div>");
-          $tweet['appendTo']($body);
-          index -= 1;
-        }
-      }
-
-      function addUserTweets(name){
-          scheduleNextTweet();
-          displayNewTweets('prependTo',$('.appContainer'));
-          setTimeout(addUserTweets, 8000, name);
-      }
-
-      function addNewTweets(homeOrName){
-        if(!window.userPage){
-          scheduleNextTweet();
-          displayNewTweets('prependTo',$('.appContainer'));
-          setTimeout(addNewTweets, 8000, homeOrName);
-        }
-      }
-
       function displayNewTweets(appendType,appendLocation,name){
-        var ind = (name) ? streams.users[name].length - 1 : streams.home.length - 1;
-        var tweet = (name) ? streams.users[name][ind] : streams.home[ind];
         var $tweet = $("<div>@<a href='#'>" + tweet.user + "</a>: " + tweet.message + " - created on: " + dateParse(tweet.created_at) + "</div>");
         $tweet[appendType](appendLocation);
       }
