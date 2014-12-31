@@ -30,7 +30,8 @@
         if(stream===streams.home){$('.home').hide();}else{$('.home').show();}
         var $body = $('#appContainer');
         $body.html('');
-        var baseTweets = _.last(stream,11);
+        var baseTweetsReversed = _.last(stream,11);
+        var baseTweets = baseTweetsReversed.reverse();
         var index = stream.length - 1;
         displayTweets(baseTweets,'appendTo',$body);
         getLatestTweets(stream);
@@ -40,7 +41,7 @@
         window.latestTweets = _.filter(stream,function(item){return item.created_at > (timeOfLastTweet);});
         timeOfLastTweet = (timeOfLastTweet) ? stream[stream.length-1].created_at : stream[stream.length-1].created_at;
         if(latestTweets[0]){displayTweets(latestTweets,'prependTo',$('#appContainer'));}
-        var tweetChecker = setTimeout(getLatestTweets,500,stream,timeOfLastTweet);
+        var tweetChecker = setTimeout(getLatestTweets,5500,stream,timeOfLastTweet);
         $("#appContainer").on("click","a",function(){
           clearTimeout(tweetChecker);
         });
