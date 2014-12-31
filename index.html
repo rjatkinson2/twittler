@@ -18,6 +18,11 @@
         $("#appContainer").on("click","a",function(){
           launchStream(streams.users[$(this).text()]);
         });
+
+        // listen for user name link clicks and then show that user
+        $(".home").on("click","a",function(){
+          launchStream(streams.home);
+        });        
       
       });
 
@@ -35,8 +40,11 @@
         window.latestTweets = _.filter(stream,function(item){return item.created_at > (timeOfLastTweet);});
         timeOfLastTweet = (timeOfLastTweet) ? stream[stream.length-1].created_at : stream[stream.length-1].created_at;
         if(latestTweets[0]){displayTweets(latestTweets,'prependTo',$('#appContainer'));}
-        var tweetChecker = setTimeout(getLatestTweets,4000,stream,timeOfLastTweet);
+        var tweetChecker = setTimeout(getLatestTweets,500,stream,timeOfLastTweet);
         $("#appContainer").on("click","a",function(){
+          clearTimeout(tweetChecker);
+        });
+        $(".home").on("click","a",function(){
           clearTimeout(tweetChecker);
         });
       }
