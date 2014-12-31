@@ -7,6 +7,10 @@
   </head>
   <body>
     <div class="home"><a href="#">Home</a></div>
+    <form id="youTweet" action="">
+      <textarea>join the conversation!</textarea>
+      <input type="submit" value="Submit">
+    </form>
     <div id="appContainer"></div>
     <script>
 
@@ -22,9 +26,22 @@
         // listen for user name link clicks and then show that user
         $(".home").on("click","a",function(){
           launchStream(streams.home);
+        });
+
+        // listen for a new tweet submittal and show that tweet
+        window.visitor = 'rjatkinsonBananaHammock';
+        $("#youTweet").submit(function(event) {
+          event.preventDefault();
+          userTweets(window.visitor);
         });        
       
       });
+
+      function userTweets(user){
+        streams.users[user] = [];
+        writeTweet($("#youTweet textarea").val());
+        _.last(streams.users[user])['created_at'] = new Date();
+      }
 
       function launchStream(stream){
         if(stream===streams.home){$('.home').hide();}else{$('.home').show();}
@@ -39,9 +56,9 @@
 
       function getLatestTweets(stream, timeOfLastTweet){
         window.latestTweets = _.filter(stream,function(item){return item.created_at > (timeOfLastTweet);});
-        timeOfLastTweet = (timeOfLastTweet) ? stream[stream.length-1].created_at : stream[stream.length-1].created_at;
+        timeOfLastTweet = stream[stream.length-1].created_at;
         if(latestTweets[0]){displayTweets(latestTweets,'prependTo',$('#appContainer'));}
-        var tweetChecker = setTimeout(getLatestTweets,5500,stream,timeOfLastTweet);
+        var tweetChecker = setTimeout(getLatestTweets,800,stream,timeOfLastTweet);
         $("#appContainer").on("click","a",function(){
           clearTimeout(tweetChecker);
         });
