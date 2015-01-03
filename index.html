@@ -1,17 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twittler | Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/app.css" />
     <script src="jquery.js"></script>
     <script src="underbar.js"></script>
     <script src="data_generator.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Exo:100,100italic,300' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <div class="home"><a href="#">Home</a></div>
-    <form id="youTweet" action="">
-      <textarea>join the conversation!</textarea>
-      <input type="submit" value="Submit">
-    </form>
-    <div id="appContainer"></div>
+    <div class="row" style="position:fixed; height:170px">
+      <div class="large-2 medium-4 columns logoBox">
+        <h1 style="color:white; font-size:50px">Twittler</h1>
+        <div class="home"><a href="#">Home</a></div>
+      </div>
+      <div class="large-7 medium-8 columns collapse textareaBox">
+        <form id="youTweet" action="">
+          <div class="large-10 columns">
+            <h2>Contribute to the conversation:</h2>
+              <input type="text" placeholder="Where in the world is Carmen San Diego #UCSD"></input>
+          </div>
+          <div class="large-2 columns collapse">
+            <input type="submit" value="Submit" class="medium success button">
+          </div>
+        </form>
+      </div>
+      <div class="large-3 show-for-large-up columns sideBarRight">
+        <h3>Tweet of the day</h3>
+        <h8>the president developed an entire security system #ballin</h8>
+      </div>
+    </div>
+    <div class="row" style="position:fixed; height:100%; top:170px">
+      <div class="large-2 medium-4 columns sideBarLeft">
+        <div class="large-2 medium-4 columns collapse overlay">
+          <h3>Chirpiest Birds</h3>
+        </div>
+      </div>
+      <div class="large-7 large-offset-2 medium-8 medium-offset-4 columns">
+        <div id="appContainer"></div>
+      </div>
+      <div class="large-3 show-for-large-up columns">
+        
+      </div>
+    </div>
+
     <script>
 
       $(document).ready(function(){
@@ -39,7 +74,7 @@
 
       function userTweets(user){
         streams.users[user] = [];
-        writeTweet($("#youTweet textarea").val());
+        writeTweet($("#youTweet input[type=text]").val());
         _.last(streams.users[user])['created_at'] = new Date();
       }
 
@@ -58,7 +93,7 @@
         window.latestTweets = _.filter(stream,function(item){return item.created_at > (timeOfLastTweet);});
         timeOfLastTweet = stream[stream.length-1].created_at;
         if(latestTweets[0]){displayTweets(latestTweets,'prependTo',$('#appContainer'));}
-        var tweetChecker = setTimeout(getLatestTweets,800,stream,timeOfLastTweet);
+        var tweetChecker = setTimeout(getLatestTweets,4800,stream,timeOfLastTweet);
         $("#appContainer").on("click","a",function(){
           clearTimeout(tweetChecker);
         });

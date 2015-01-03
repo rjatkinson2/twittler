@@ -1,0 +1,162 @@
+body {
+  font-family: Exo2-Thin;
+}
+
+.collapse{
+  padding: 0;
+}
+
+.row {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: initial;
+}
+
+#appContainer{
+  overflow-y: scroll;
+}
+
+h1 {
+  font-family: Exo2-Thin;
+  font-size: 72px;
+  color: #1D2940;
+  line-height: 86px;
+}
+h2 {
+  font-family: Exo2-Thin;
+  font-size: 26px;
+  color: #FFFFFF;
+  line-height: 31px;
+}
+h3 {
+  font-family: Exo2-Light;
+  font-size: 20px;
+  color: #FFFFFF;
+  line-height: 24px;
+}
+h4 {
+  font-family: Exo2-Thin;
+  font-size: 18px;
+  color: #FFFFFF;
+  line-height: 22px;
+}
+h5 {
+  font-family: 'Exo', sans-serif;
+  font-weight: 100;
+  font-size: 18px;
+  color: #1D2940;
+  line-height: 22px;
+}
+h6 {
+  font-family: Exo2-Light;
+  font-size: 18px;
+  color: #7DD4C9;
+  line-height: 22px;
+}
+h7 {
+  font-family: Exo2-Thin;
+  font-size: 18px;
+  color: #979797;
+  line-height: 22px;
+}
+h8 {
+  font-family: 'Exo', sans-serif;
+  font-weight: 100;
+  font-size: 18px;
+  color: #FFFFFF;
+  line-height: 22px;
+}
+.logoBox {
+  background: #7DD4C9;
+  height: 170px;
+}
+.textareaBox {
+  background: #F96B5C;
+  height: 170px;
+}
+
+::-webkit-input-placeholder  { color:#FFF; opacity: .53; background-color: none;} /* Webkit */
+:-moz-placeholder { color:#FFF; opacity: .53; background-color: none;}  /* Firefox <= 18 */
+::-moz-placeholder { color:#FFF; opacity: .53; background-color: none;}  /* Firefox >= 19 */
+:-ms-input-placeholder {  color: #FFF; opacity: .53; background-color: none;} /* Internet Explorer */
+
+input[type=text] {
+  background: none;
+  border: none;
+  box-shadow: none;
+  font-family: 'Exo', sans-serif;
+  font-weight: 100;
+  font-size: 26px;
+  color: #FFFFFF;
+  line-height: 31px;
+  border-bottom: 1px solid #FFFFFF;
+}
+.textareaBorder {
+  border: 1px solid #FFFFFF;
+}
+.tweetSubmit {
+  background: #FA9A90;
+}
+.sideBarLeft {
+  position: fixed;
+  height: 100%;
+  background-image: url("sbl-1.jpg");
+  padding: 0;
+}
+
+.overlay{
+  position: fixed;
+  top:170px;
+  height: 100%;
+  background: rgba(29,41,64,0.70);
+  padding: 0;
+  margin: 0;
+}
+
+.sideBarRight {
+  opacity: 0.75;
+  background: #1D2940;
+  height: 170px;
+}
+.boxBirds {
+  opacity: 0.45;
+  border: 1px solid #FFFFFF;
+  border-radius: 6px;
+}
+.boxTrends {
+  border: 1px solid #FFFFFF;
+  border-radius: 6px;
+}
+.boxTweets {
+  opacity: 0.33;
+  border: 1px solid #1D2940;
+  border-radius: 6px;
+}
+
+input[type=submit]{
+  font-family: Exo2-Thin;
+}
+
+input[type=submit].success{
+  background-color: #FA9A90;
+  width: 100%;
+  height: 170px;
+}
+
+input[type=submit].success:hover, input[type=submit].success:active{
+  background-color: #F89186; 
+}
+
+input[type=text]:focus{
+  background: none;
+  border: none;
+  box-shadow: none;
+  font-family: 'Exo', sans-serif;
+  font-weight: 100;
+  font-size: 26px;
+  color: #FFFFFF;
+  line-height: 31px;
+  border-bottom: 1px solid #FFFFFF;
+}
+
