@@ -1,7 +1,7 @@
 body {
   font-family: 'Exo', sans-serif;
   font-weight: 100;
-  color:;
+  color:1D2940;
 }
 .collapse {
   padding: 0;
@@ -14,7 +14,19 @@ body {
 }
 #appContainer {
   overflow-y: scroll;
+  padding: 30px 20px;
 }
+
+h1.logo{
+  font-family: 'Exo', sans-serif;
+  font-size: 120px;
+  font-weight: 800;
+  font-style: italic;
+  color: #FFF;
+  text-align: center;
+  margin-top: 40px;
+}
+
 h1 {
   font-family: 'Exo', sans-serif;
   font-weight: 100;
@@ -202,7 +214,7 @@ input[type=text]:focus {
   opacity: 0.45;
   border: 1px solid #FFFFFF;
   border-radius: 6px;
-  padding: 4px;
+  padding: 4px 10px;
 }
 
 #appContainer h6,
@@ -217,8 +229,13 @@ input[type=text]:focus {
 }
 
 #appContainer h5{
-  padding:8px;
-  margin: 10px;
+  padding:8px 20px;
+  margin: 5px;
   border: 1px solid rgba(29,41,64,0.34);
   border-radius: 6px;
+}
+
+.stats div{
+  text-align: center;
+  margin-top: 50px;
 }
