@@ -205,25 +205,18 @@ input[type=text]:focus {
   padding: 4px;
 }
 
-#appContainer div{
-  border: 1px solid rgba(29,41,64,0.34);
-  border-radius: 6px;
-  padding:8px;
-  margin: 10px;
-}
-
-#appContainer2 h6,
-#appContainer2 h7{
+#appContainer h6,
+#appContainer h7{
   display: inline-block;
   padding: 0 8px;
   margin: 10px 10px 0 10px;
 }
 
-#appContainer2 h7{
+#appContainer h7{
   float: right;
 }
 
-#appContainer2 h5{
+#appContainer h5{
   padding:8px;
   margin: 10px;
   border: 1px solid rgba(29,41,64,0.34);

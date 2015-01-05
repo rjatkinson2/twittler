@@ -53,11 +53,6 @@
         </div>
       </div>
       <div class="large-7 large-offset-2 medium-8 medium-offset-4 columns">
-        <div id="appContainer2">
-          <h6><a href='#'>@ rjatkinson2</a></h6>
-          <h7>a few seconds ago</h7>
-          <h5>The president developed an entire security system #ballin</h5>
-        </div>
         <div id="appContainer"></div>
       </div>
       <div class="large-3 show-for-large-up columns">
@@ -113,7 +108,7 @@
         window.latestTweets = _.filter(stream,function(item){return item.created_at > (timeOfLastTweet);});
         timeOfLastTweet = stream[stream.length-1].created_at;
         if(latestTweets[0]){displayTweets(latestTweets,'prependTo',$('#appContainer'));}
-        var tweetChecker = setTimeout(getLatestTweets,4800,stream,timeOfLastTweet);
+        var tweetChecker = setTimeout(getLatestTweets,466800,stream,timeOfLastTweet);
         $("#appContainer").on("click","a",function(){
           clearTimeout(tweetChecker);
         });
@@ -124,7 +119,7 @@
 
       function displayTweets(tweetArray,appendType,appendLocation){
         _.each(tweetArray,function(item){
-          var $tweet = $("<div>@<a href='#'>" + item.user + "</a>: " + item.message + " - created on: " + dateParse(item.created_at) + "</div>");
+          var $tweet = $("<div><h6><a href='#'>@" + item.user + "</a></h6><h7>" + dateParse(item.created_at) + "</h7></div><h5>" + item.message + "</h5>");
           $tweet[appendType](appendLocation);
         });
       }
