@@ -108,7 +108,7 @@
         window.latestTweets = _.filter(stream,function(item){return item.created_at > (timeOfLastTweet);});
         timeOfLastTweet = stream[stream.length-1].created_at;
         if(latestTweets[0]){displayTweets(latestTweets,'prependTo',$('#appContainer'));}
-        var tweetChecker = setTimeout(getLatestTweets,466800,stream,timeOfLastTweet);
+        var tweetChecker = setTimeout(getLatestTweets,1800,stream,timeOfLastTweet);
         $("#appContainer").on("click","a",function(){
           clearTimeout(tweetChecker);
         });
@@ -119,7 +119,7 @@
 
       function displayTweets(tweetArray,appendType,appendLocation){
         _.each(tweetArray,function(item){
-          var $tweet = $("<div><h6><a href='#'>@" + item.user + "</a></h6><h7>" + dateParse(item.created_at) + "</h7></div><h5>" + item.message + "</h5>");
+          var $tweet = $("<div><h6>@<a href='#'>" + item.user + "</a></h6><h7>" + dateParse(item.created_at) + "</h7></div><h5>" + item.message + "</h5>");
           $tweet[appendType](appendLocation);
         });
       }
