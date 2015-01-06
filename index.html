@@ -15,7 +15,7 @@
     <div class="row" style="position:fixed; height:170px">
       <div class="large-2 medium-4 columns logoBox">
         <h1 class="logo">t<span style="font-size: 80px">.</span></h1>
-        <div class="home"><a href="#">Home</a></div>
+        <div class="home"><a href="#"><- Home</a></div>
       </div>
       <div class="large-7 medium-8 columns collapse textareaBox">
         <form id="youTweet" action="">
@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="row" style="position:fixed; height:100%; top:170px">
+    <div class="row" style="position:fixed; height:100%; top:170px; overflow:scroll">
       <div class="large-2 medium-4 columns sideBarLeft">
         <div class="large-2 medium-4 columns collapse overlay">
           <h3>Chirpiest Birds</h3>
@@ -52,7 +52,7 @@
           <h4>#yolo</h4>
         </div>
       </div>
-      <div class="large-7 large-offset-2 medium-8 medium-offset-4 columns">
+      <div class="large-7 large-offset-2 medium-8 medium-offset-4 columns" style="overflow:scroll">
         <div id="appContainer"></div>
       </div>
       <div class="large-3 show-for-large-up columns stats">
@@ -88,8 +88,9 @@
       });
 
       function userTweets(user){
-        streams.users[user] = [];
+        if(!streams.users[user]){streams.users[user] = [];}
         writeTweet($("#youTweet input[type=text]").val());
+        _.last(streams.home)['created_at'] = new Date();
         _.last(streams.users[user])['created_at'] = new Date();
       }
 
@@ -97,9 +98,8 @@
         if(stream===streams.home){$('.home').hide();}else{$('.home').show();}
         var $body = $('#appContainer');
         $body.html('');
-        var baseTweetsReversed = _.last(stream,11);
+        var baseTweetsReversed = _.last(stream,11).slice();
         var baseTweets = baseTweetsReversed.reverse();
-        var index = stream.length - 1;
         displayTweets(baseTweets,'appendTo',$body);
         getLatestTweets(stream);
       }
@@ -120,7 +120,7 @@
       function displayTweets(tweetArray,appendType,appendLocation){
         _.each(tweetArray,function(item){
           var $tweet = $("<div><h6>@<a href='#'>" + item.user + "</a></h6><h7>" + dateParse(item.created_at) + "</h7></div><h5>" + item.message + "</h5>");
-          $tweet[appendType](appendLocation);
+          $tweet[appendType](appendLocation).hide().slideDown("slow");
         });
       }
 
