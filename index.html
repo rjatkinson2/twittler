@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/app.css" />
     <script src="jquery.js"></script>
     <script src="underbar.js"></script>
+    <script src="moment.js"></script>
     <script src="data_generator.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Exo:100,100italic,300,800italic' rel='stylesheet' type='text/css'>
   </head>
@@ -95,6 +96,7 @@
       }
 
       function launchStream(stream){
+        window.appDate = new Date();
         if(stream===streams.home){$('.home').hide();}else{$('.home').show();}
         var $body = $('#appContainer');
         $body.html('');
@@ -118,24 +120,21 @@
       }
 
       function displayTweets(tweetArray,appendType,appendLocation){
+        upDate();
         _.each(tweetArray,function(item){
-          var $tweet = $("<div><h6>@<a href='#'>" + item.user + "</a></h6><h7>" + dateParse(item.created_at) + "</h7></div><h5>" + item.message + "</h5>");
+          var $tweet = $("<div><h6>@<a href='#'>" + item.user + "</a></h6><h7 data-time='" + item.created_at + "'>" + moment(item.created_at).fromNow() + "</h7></div><h5>" + item.message + "</h5>");
           $tweet[appendType](appendLocation).hide().slideDown("slow");
         });
       }
 
-      // utility function for parsing dates stored in tweets.created_at
-      function dateParse(date) {
-        var hourParse = function (hour) {
-          return (hour > 12) ? hour - 12 : hour;
-        };
-        var parsedDate = [date.getFullYear(),
-                        date.getMonth() + 1,
-                        date.getDate(),
-                        hourParse(date.getHours()),
-                        date.getMinutes(),
-                        date.getSeconds()];
-        return parsedDate.join('-');
+      function upDate(){
+        var displayedDates = $('#appContainer h7');
+        var l = displayedDates.length;
+        for(var i=0; i<l; i++){
+          var date = moment(new Date(displayedDates[i].getAttribute("data-time")));
+          var difference = moment().diff(date,'seconds');
+          $('#appContainer h7:eq(' + i + ')').html(difference + ' seconds ago');
+        }
       }
     </script>
   </body>

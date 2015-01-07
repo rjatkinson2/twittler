@@ -193,10 +193,16 @@ input[type=submit].success {
   height: 170px;
 }
 input[type=submit].success:hover,
-input[type=submit].success:active,
 input[type=submit].success:focus {
-  background-color: #F89186;
+  background-color: #7DD4C9;
+  outline: none;
 }
+
+input[type=submit].success:active{
+  background-color: #1D2940;
+  outline: none;
+}
+
 input[type=text]:focus {
   background: none;
   border: none;
