@@ -265,3 +265,7 @@ input[type=text]:focus {
   color: #FFF;
   font-weight: 800;
 }
+
+.confirmation{
+  display: none;
+}

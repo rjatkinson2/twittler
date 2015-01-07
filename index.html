@@ -19,6 +19,7 @@
         <div class="home"><a href="#"><- Home</a></div>
       </div>
       <div class="large-7 medium-8 columns show-for-medium-up collapse textareaBox">
+        <div class="confirmation"></div>
         <form id="youTweet" action="">
           <div class="large-10 columns">
             <h2>Contribute to the conversation:</h2>
@@ -79,6 +80,7 @@
         $("#youTweet").submit(function(event) {
           event.preventDefault();
           userTweets(window.visitor);
+          streamNote();
         });        
       
       });
@@ -121,6 +123,14 @@
           var $tweet = $("<div><h6>@<a href='#'>" + item.user + "</a></h6><h7 data-time='" + item.created_at + "'>" + moment(item.created_at).fromNow() + "</h7></div><h5>" + item.message + "</h5>");
           $tweet[appendType](appendLocation).hide().slideDown("slow");
         });
+      }
+
+      function streamNote(){
+        $('.textareaBox form').fadeOut('slow').delay(3000).fadeIn('slow');
+        setTimeout(function(){
+          $(".confirmation").html("<h2 style='padding:65px 30px'>Thanks, your tweet has been added to the stream!</h2>").fadeIn('slow').delay(2000).fadeOut('slow');
+          $('#youTweet input[type=text]').val('');
+        },500);
       }
 
       function upDate(){
