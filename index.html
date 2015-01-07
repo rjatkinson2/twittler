@@ -18,7 +18,7 @@
         <h1 class="logo">t<span style="font-size: 80px">.</span></h1>
         <div class="home"><a href="#"><- Home</a></div>
       </div>
-      <div class="large-7 medium-8 columns collapse textareaBox">
+      <div class="large-7 medium-8 columns show-for-medium-up collapse textareaBox">
         <form id="youTweet" action="">
           <div class="large-10 columns">
             <h2>Contribute to the conversation:</h2>
@@ -31,20 +31,20 @@
       </div>
       <div class="large-3 show-for-large-up columns sideBarRight">
         <div class="large-3 show-for-large-up columns collapse overlayRight">
-          <h3>Tweet of the day</h3>
+          <h3>A moment of zen:</h3>
           <h8>the president developed an entire security system #ballin</h8>
         </div>
       </div>
     </div>
     <div class="row" style="position:fixed; height:100%; top:170px; overflow:scroll">
-      <div class="large-2 medium-4 columns sideBarLeft">
+      <div class="large-2 medium-4 show-for-medium-up columns sideBarLeft">
         <div class="large-2 medium-4 columns collapse overlay">
-          <h3>Chirpiest Birds</h3>
-          <h4>@rjatkinson</h4>
+          <h3>Loudest Birds</h3>
           <h4>@shawndrost</h4>
           <h4>@mracus</h4>
           <h4>@sharksforcheap</h4>
           <h4>@douglascalhoun</h4>
+          <h4>@theNewGuy</h4>
           <h3>Trending Topics</h3>
           <h4>#ballin</h4>
           <h4>#sxsw</h4>
@@ -53,13 +53,8 @@
           <h4>#yolo</h4>
         </div>
       </div>
-      <div class="large-7 large-offset-2 medium-8 medium-offset-4 columns" style="overflow:scroll">
+      <div class="large-10 large-offset-2 medium-8 medium-offset-4 columns" style="overflow:scroll">
         <div id="appContainer"></div>
-      </div>
-      <div class="large-3 show-for-large-up columns stats">
-        <div><h1>37</h1><h7>new tweets</h7></div>
-        <div><h1 style="color:#f96b5c">37</h1><h7>new topics</h7></div>
-        <div><h1 style="color:#7dd4c9">37</h1><h7>new birds</h7></div>
       </div>
     </div>
 
@@ -80,7 +75,7 @@
         });
 
         // listen for a new tweet submittal and show that tweet
-        window.visitor = 'rjatkinsonBananaHammock';
+        window.visitor = 'theNewGuy';
         $("#youTweet").submit(function(event) {
           event.preventDefault();
           userTweets(window.visitor);
@@ -104,6 +99,7 @@
         var baseTweets = baseTweetsReversed.reverse();
         displayTweets(baseTweets,'appendTo',$body);
         getLatestTweets(stream);
+        funStuff(stream);
       }
 
       function getLatestTweets(stream, timeOfLastTweet){
@@ -135,6 +131,10 @@
           var difference = moment().diff(date,'seconds');
           $('#appContainer h7:eq(' + i + ')').html(difference + ' seconds ago');
         }
+      }
+
+      function funStuff(stream){
+        $('.sideBarRight h8').text(randomElement(stream).message);
       }
     </script>
   </body>
